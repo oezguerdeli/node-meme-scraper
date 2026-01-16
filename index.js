@@ -5,12 +5,6 @@ import path from 'path';
 //URL for scraping memes
 const scrapeSource = 'https://memegen-link-examples-upleveled.netlify.app/';
 
-//just as an example for customizing meme
-const exampleCustomMeme =
-  'https://memecomplete.com/custom/?key=https://api.memegen.link/images/success/when_you_say_youre_just_going_for_a_light_jog/but_end_up_running_for_your_life.jpg&editing=true';
-
-//first goal, scraping the first 10 images and save it in the folder /memes with 2 digits like 01.jpg, 02.jpg
-
 let digitCount = 0;
 let bottomText = '';
 let topText = '';
@@ -33,7 +27,7 @@ if (!fs.existsSync('memes')) {
     } else {
       //debugging
       console.log(maxCount);
-      digitCount = maxCount;
+      digitCount = maxCount + 1;
     }
   });
 }
@@ -44,13 +38,60 @@ if (argv.length > 4) {
   //assign arguments to variables
   bottomText = argv[2];
   topText = argv[3];
-  memePicture = argv[3];
+  memePicture = argv[4];
 
-  const sourceUrl = 'https://memecomplete.com/search/?q=' + memePicture;
+  const sourceUrl =
+    'https://memecomplete.com/edit/images/' +
+    memePicture +
+    '/' +
+    topText +
+    '/' +
+    bottomText +
+    '.jpg';
+
+  //debugging
+  //console.log(sourceUrl);
+
+  const response = await fetch(sourceUrl);
+  const buffer = await response.arrayBuffer();
+
+  const fileName = String(digitCount + 1).padStart(2, '0') + '.jpg';
+  const filePath = path.join('memes', fileName);
+  fs.writeFileSync(filePath, Buffer.from(buffer));
 } else {
   //no arguments
-}
+  const response = await fetch(scrapeSource);
+  const html = await response.text();
 
-const response = await fetch(scrapeSource);
-const html = await response.text();
-console.log(html.slice(0, 300)); // nur zum Test
+  const regex = /<img[^>]*src="([^"]+)"/g;
+
+  const imageUrls = [];
+  let match;
+
+  let progressCounter = 0;
+
+  while ((match = regex.exec(html)) !== null) {
+    if (imageUrls.length === 10) {
+      break;
+    }
+
+    imageUrls.push(match[1]);
+    progressCounter += 10;
+    console.log(`Progress: ${progressCounter}%`);
+  }
+
+  //debugging
+  //console.log(imageUrls);
+
+  for (let i = 0; i < imageUrls.length; i++) {
+    const imageUrl = imageUrls[i];
+
+    const response = await fetch(imageUrl);
+    const buffer = await response.arrayBuffer();
+
+    const fileName = String(digitCount + i + 1).padStart(2, '0') + '.jpg';
+    const filePath = path.join('memes', fileName);
+
+    fs.writeFileSync(filePath, Buffer.from(buffer));
+  }
+}
