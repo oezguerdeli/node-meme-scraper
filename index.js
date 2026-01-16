@@ -45,6 +45,12 @@ if (argv.length > 4) {
   bottomText = argv[2];
   topText = argv[3];
   memePicture = argv[3];
+
+  const sourceUrl = 'https://memecomplete.com/search/?q=' + memePicture;
 } else {
   //no arguments
 }
+
+const response = await fetch(scrapeSource);
+const html = await response.text();
+console.log(html.slice(0, 300)); // nur zum Test
