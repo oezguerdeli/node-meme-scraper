@@ -1,3 +1,1 @@
-import upleveled from "eslint-config-upleveled";
-
-export default [...upleveled];
+export { default } from 'eslint-config-upleveled';
