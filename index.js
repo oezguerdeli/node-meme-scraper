@@ -72,9 +72,11 @@ if (argv.length > 4) {
       break;
     }
 
-    imageUrls.push(match[1]);
+    const cleanUrl = match[1].split('?')[0];
+    imageUrls.push(cleanUrl);
     progressCounter += 10;
     console.log(`Progress: ${progressCounter}%`);
+    //  console.log(cleanUrl);
   }
 
   //  debugging
