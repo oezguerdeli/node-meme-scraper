@@ -29,8 +29,8 @@ jobs:
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "lts/*"
-          cache: "pnpm"
+          node-version: 'lts/*'
+          cache: 'pnpm'
       - name: Install project dependencies
         run: pnpm install
       - name: Create test file
@@ -137,7 +137,7 @@ Stretch goals:
 
 ## Acceptance Criteria
 
-- [ ] Preflight runs through without errors in your project
-  - [ ] Link in your GitHub repo's About section: Replit demo
-- [ ] [Drone bot](https://learn.upleveled.io/pern-extensive-flex-winter-2025-eu/modules/cheatsheet-tasks/#upleveled-drone) has been tagged and responded with a passing message
-- [ ] Correct GitHub commit message format (see [Writing Commit Messages](https://learn.upleveled.io/pern-extensive-flex-winter-2025-eu/modules/cheatsheet-git-github/#writing-commit-messages))
+- [x] Preflight runs through without errors in your project
+  - [x] Link in your GitHub repo's About section: Replit demo
+- [x] [Drone bot](https://learn.upleveled.io/pern-extensive-flex-winter-2025-eu/modules/cheatsheet-tasks/#upleveled-drone) has been tagged and responded with a passing message
+- [x] Correct GitHub commit message format (see [Writing Commit Messages](https://learn.upleveled.io/pern-extensive-flex-winter-2025-eu/modules/cheatsheet-git-github/#writing-commit-messages))
