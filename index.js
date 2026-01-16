@@ -1,21 +1,21 @@
-import { argv } from 'node:process';
-import fs from 'fs';
-import path from 'path';
+import { argv } from "node:process";
+import fs from "fs";
+import path from "path";
 
 //URL for scraping memes
-const scrapeSource = 'https://memegen-link-examples-upleveled.netlify.app/';
+const scrapeSource = "https://memegen-link-examples-upleveled.netlify.app/";
 
 let digitCount = 0;
-let bottomText = '';
-let topText = '';
-let memePicture = '';
+let bottomText = "";
+let topText = "";
+let memePicture = "";
 
 //if folder 'memes' doesn´t exist, create one
-if (!fs.existsSync('memes')) {
-  fs.mkdirSync('memes');
+if (!fs.existsSync("memes")) {
+  fs.mkdirSync("memes");
 } else {
   //check existing files to make sure that id is incremented correctly
-  const files = fs.readdirSync('memes');
+  const files = fs.readdirSync("memes");
 
   const file = files.forEach((f) => {
     let maxCount = 0;
@@ -41,13 +41,13 @@ if (argv.length > 4) {
   memePicture = argv[4];
 
   const sourceUrl =
-    'https://memecomplete.com/edit/images/' +
+    "https://memecomplete.com/edit/images/" +
     memePicture +
-    '/' +
+    "/" +
     topText +
-    '/' +
+    "/" +
     bottomText +
-    '.jpg';
+    ".jpg";
 
   //debugging
   //console.log(sourceUrl);
@@ -55,8 +55,8 @@ if (argv.length > 4) {
   const response = await fetch(sourceUrl);
   const buffer = await response.arrayBuffer();
 
-  const fileName = String(digitCount + 1).padStart(2, '0') + '.jpg';
-  const filePath = path.join('memes', fileName);
+  const fileName = String(digitCount + 1).padStart(2, "0") + ".jpg";
+  const filePath = path.join("memes", fileName);
   fs.writeFileSync(filePath, Buffer.from(buffer));
 } else {
   //no arguments
@@ -89,8 +89,8 @@ if (argv.length > 4) {
     const response = await fetch(imageUrl);
     const buffer = await response.arrayBuffer();
 
-    const fileName = String(digitCount + i + 1).padStart(2, '0') + '.jpg';
-    const filePath = path.join('memes', fileName);
+    const fileName = String(digitCount + i + 1).padStart(2, "0") + ".jpg";
+    const filePath = path.join("memes", fileName);
 
     fs.writeFileSync(filePath, Buffer.from(buffer));
   }
