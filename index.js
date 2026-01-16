@@ -11,28 +11,40 @@ const exampleCustomMeme =
 
 //first goal, scraping the first 10 images and save it in the folder /memes with 2 digits like 01.jpg, 02.jpg
 
-//check if folder 'memes' exists
-const downloadDirectory = path.join(process.cwd(), 'memes');
+let digitCount = 0;
+let bottomText = '';
+let topText = '';
+let memePicture = '';
 
 //if folder 'memes' doesn´t exist, create one
-if (!fs.existsSync(downloadDirectory)) {
-  fs.mkdirSync(downloadDirectory);
+if (!fs.existsSync('memes')) {
+  fs.mkdirSync('memes');
+} else {
+  //check existing files to make sure that id is incremented correctly
+  const files = fs.readdirSync('memes');
+
+  const file = files.forEach((f) => {
+    let maxCount = 0;
+
+    const number = parseInt(f);
+
+    if (number > maxCount) {
+      maxCount = number;
+    } else {
+      //debugging
+      console.log(maxCount);
+      digitCount = maxCount;
+    }
+  });
 }
 
-if (argv[2] === undefined) {
-  // Random color will be used with random hue and luminosity
-} else if (argv.length === 3) {
-  // Hue is taken from command line, luminosity is random
-  inputHue = argv[2];
-} else if (argv.length > 3) {
-  // Hue and luminosity is taken from command line
-  inputLuminosity = argv[3];
-  inputHue = argv[2];
+//check if there are arguments when running index.js
+//and make sure they are complete (top, bottom, picture)
+if (argv.length > 4) {
+  //assign arguments to variables
+  bottomText = argv[2];
+  topText = argv[3];
+  memePicture = argv[3];
+} else {
+  //no arguments
 }
-
-console.log(argv[0]);
-console.log(argv[1]);
-console.log(argv[2]);
-console.log(argv[3]);
-console.log(argv[4]);
-console.log(argv[5]);
