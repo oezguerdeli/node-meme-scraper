@@ -130,8 +130,8 @@ This is a placeholder for you to enter your todos.
 
 Stretch goals:
 
-- [ ] Make the application create your own custom meme (eg. `node index.js hello karl bender` would download an image with the top text of "hello", the bottom text of "karl", with the meme image of Bender)
-- [ ] Add a nice progress indicator (either messages or a progress bar)
+- [x] Make the application create your own custom meme (eg. `node index.js hello karl bender` would download an image with the top text of "hello", the bottom text of "karl", with the meme image of Bender)
+- [x] Add a nice progress indicator (either messages or a progress bar)
 - [ ] Create a version of your program that uses [Deno](https://deno.com/) or [Bun](https://bun.sh/) instead of Node.js
 - [ ] Make your program run on any computer without Node.js or any other runtime installed by creating a [Node.js Single Executable Application](https://nodejs.org/api/single-executable-applications.html), [Deno standalone executable](https://docs.deno.com/runtime/reference/cli/compiler/) or [Bun single-file executable](https://bun.sh/docs/bundler/executables)
 
