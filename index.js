@@ -1,8 +1,8 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import { argv } from 'node:process';
-import fs from 'fs';
-import path from 'path';
 
-//URL for scraping memes
+//  URL for scraping memes
 const scrapeSource = 'https://memegen-link-examples-upleveled.netlify.app/';
 
 let digitCount = 0;
@@ -10,14 +10,14 @@ let bottomText = '';
 let topText = '';
 let memePicture = '';
 
-//if folder 'memes' doesn´t exist, create one
+//  if folder 'memes' doesn´t exist, create one
 if (!fs.existsSync('memes')) {
   fs.mkdirSync('memes');
 } else {
-  //check existing files to make sure that id is incremented correctly
+  //  check existing files to make sure that id is incremented correctly
   const files = fs.readdirSync('memes');
 
-  const file = files.forEach((f) => {
+  files.forEach((f) => {
     let maxCount = 0;
 
     const number = parseInt(f);
@@ -25,17 +25,17 @@ if (!fs.existsSync('memes')) {
     if (number > maxCount) {
       maxCount = number;
     } else {
-      //debugging
+      //  debugging
       console.log(maxCount);
       digitCount = maxCount + 1;
     }
   });
 }
 
-//check if there are arguments when running index.js
-//and make sure they are complete (top, bottom, picture)
+//  check if there are arguments when running index.js
+//  and make sure they are complete (top, bottom, picture)
 if (argv.length > 4) {
-  //assign arguments to variables
+  //  assign arguments to variables
   bottomText = argv[2];
   topText = argv[3];
   memePicture = argv[4];
@@ -49,19 +49,16 @@ if (argv.length > 4) {
     bottomText +
     '.jpg';
 
-  //debugging
-  //console.log(sourceUrl);
-
-  const response = await fetch(sourceUrl);
-  const buffer = await response.arrayBuffer();
+  const resp = await fetch(sourceUrl);
+  const buffer = await resp.arrayBuffer();
 
   const fileName = String(digitCount + 1).padStart(2, '0') + '.jpg';
   const filePath = path.join('memes', fileName);
   fs.writeFileSync(filePath, Buffer.from(buffer));
 } else {
-  //no arguments
-  const response = await fetch(scrapeSource);
-  const html = await response.text();
+  //  no arguments
+  const resp = await fetch(scrapeSource);
+  const html = await resp.text();
 
   const regex = /<img[^>]*src="([^"]+)"/g;
 
@@ -80,8 +77,8 @@ if (argv.length > 4) {
     console.log(`Progress: ${progressCounter}%`);
   }
 
-  //debugging
-  //console.log(imageUrls);
+  //  debugging
+  //  console.log(imageUrls);
 
   for (let i = 0; i < imageUrls.length; i++) {
     const imageUrl = imageUrls[i];
