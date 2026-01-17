@@ -2,6 +2,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { argv } from 'node:process';
 
+//  import crypto from 'crypto';
+
 //  URL for scraping memes
 const scrapeSource = 'https://memegen-link-examples-upleveled.netlify.app/';
 
@@ -9,6 +11,8 @@ let digitCount = 0;
 let bottomText = '';
 let topText = '';
 let memePicture = '';
+
+//  let tempArrayHash = [];
 
 //  if folder 'memes' doesn´t exist, create one
 if (!fs.existsSync('memes')) {
@@ -76,14 +80,19 @@ if (argv.length > 4) {
     imageUrls.push(cleanUrl);
     progressCounter += 10;
     console.log(`Progress: ${progressCounter}%`);
-    //  console.log(cleanUrl);
+    console.log(cleanUrl);
+
+    //  await tempArrayHash.push(sha256FromUrl(cleanUrl));
   }
+
+  //  console.log(tempArrayHash);
 
   //  debugging
   //  console.log(imageUrls);
 
   for (let i = 0; i < imageUrls.length; i++) {
     const imageUrl = imageUrls[i];
+    console.log(imageUrl);
 
     const response = await fetch(imageUrl);
     const buffer = await response.arrayBuffer();
@@ -94,3 +103,9 @@ if (argv.length > 4) {
     fs.writeFileSync(filePath, Buffer.from(buffer));
   }
 }
+
+/*
+function sha256FromUrl(url) {
+  return crypto.createHash('sha256').update(url).digest('hex');
+}
+*/
