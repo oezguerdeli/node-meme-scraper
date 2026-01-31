@@ -76,7 +76,7 @@ if (argv.length > 4) {
       break;
     }
 
-    const cleanUrl = match[1].split('?')[0];
+    const cleanUrl = match[1];
     imageUrls.push(cleanUrl);
     progressCounter += 10;
     console.log(`Progress: ${progressCounter}%`);
