@@ -1,18 +1,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { argv } from 'node:process';
 
 //  URL for scraping memes
 const scrapeSource = 'https://memegen-link-examples-upleveled.netlify.app/';
-
-let digitCount = 0;
+const digitCount = 0;
 
 //  if folder 'memes' doesn´t exist, create one
 if (!fs.existsSync('memes')) {
   fs.mkdirSync('memes');
-} else {
-  //  check existing files to make sure that id is incremented correctly
-  const files = fs.readdirSync('memes');
 }
 
 //  no arguments
