@@ -26,10 +26,11 @@ while ((match = regex.exec(html)) !== null) {
     break;
   }
 
-  imageUrls.push(match);
+  const cleanUrl = match[1];
+  imageUrls.push(cleanUrl);
   progressCounter += 10;
   console.log(`Progress: ${progressCounter}%`);
-  console.log(match);
+  console.log(cleanUrl);
 }
 
 for (let i = 0; i < imageUrls.length; i++) {
